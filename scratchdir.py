@@ -7,11 +7,21 @@
 import functools
 import os
 import shutil
+import sys
 import tempfile
 import uuid
 
 
 __all__ = ['ScratchDirError', 'ScratchDirInactiveError', 'ScratchDir']
+
+
+# Prefix/suffix defaults in stdlib change starting in Python 3.5
+if sys.version_info >= (3, 5):
+    DEFAULT_PREFIX = None
+    DEFAULT_SUFFIX = None
+else:
+    DEFAULT_PREFIX = 'tmp'
+    DEFAULT_SUFFIX = ''
 
 
 class ScratchDirError(Exception):
@@ -101,7 +111,8 @@ class ScratchDir(object):
         return self.__class__(prefix, suffix, self.wd)
 
     @requires_activation
-    def file(self, mode='w+b', bufsize=-1, suffix='', prefix='tmp', dir=None):
+    def file(self, mode='w+b', buffering=-1, encoding=None, newline=None,
+             suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None):
         """
         Create a new temporary file within the scratch dir.
 
@@ -109,16 +120,20 @@ class ScratchDir(object):
         will cease to exist once it is closed.
 
         :param mode: (Optional) mode to open the file with
-        :param bufsize: (Optional) size of the file buffer
+        :param buffering: (Optional) size of the file buffer
+        :param encoding: (Optional) encoding to open the file with
+        :param newline: (Optional) newline argument to open the file with
         :param suffix: (Optional) filename suffix
         :param prefix: (Optional) filename prefix
         :param dir: (Optional) relative path to directory within the scratch dir where the file should exist
         :return: file-like object as returned by :func:`~tempfile.TemporaryFile`
         """
-        return tempfile.TemporaryFile(mode, bufsize, suffix, prefix, self.join(dir))
+        return tempfile.TemporaryFile(mode, buffering, encoding, newline,
+                                      suffix, prefix, self.join(dir))
 
     @requires_activation
-    def named(self, mode='w+b', bufsize=-1, suffix='', prefix='tmp', dir=None, delete=True):
+    def named(self, mode='w+b', buffering=-1, encoding=None, newline=None,
+              suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None, delete=True):
         """
         Create a new named temporary file within the scratch dir.
 
@@ -126,17 +141,21 @@ class ScratchDir(object):
         will cease to exist once it is closed unless `delete` is set to `False`.
 
         :param mode: (Optional) mode to open the file with
-        :param bufsize: (Optional) size of the file buffer
+        :param buffering: (Optional) size of the file buffer
+        :param encoding: (Optional) encoding to open the file with
+        :param newline: (Optional) newline argument to open the file with
         :param suffix: (Optional) filename suffix
         :param prefix: (Optional) filename prefix
         :param dir: (Optional) relative path to directory within the scratch dir where the file should exist
         :param delete: (Optional) flag to indicate if the file should be deleted from disk when it is closed
         :return: file-like object as returned by :func:`~tempfile.NamedTemporaryFile`
         """
-        return tempfile.NamedTemporaryFile(mode, bufsize, suffix, prefix, self.join(dir), delete)
+        return tempfile.NamedTemporaryFile(mode, buffering, encoding, newline,
+                                           suffix, prefix, self.join(dir), delete)
 
     @requires_activation
-    def spooled(self, max_size=0, mode='w+b', bufsize=-1, suffix='', prefix='tmp', dir=None):
+    def spooled(self, max_size=0, mode='w+b', buffering=-1, encoding=None, newline=None,
+                suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None):
         """
         Create a new spooled temporary file within the scratch dir.
 
@@ -148,16 +167,19 @@ class ScratchDir(object):
 
         :param max_size: (Optional) max size before the in-memory buffer rolls over to disk
         :param mode: (Optional) mode to open the file with
-        :param bufsize: (Optional) size of the file buffer
+        :param buffering: (Optional) size of the file buffer
+        :param encoding: (Optional) encoding to open the file with
+        :param newline: (Optional) newline argument to open the file with
         :param suffix: (Optional) filename suffix
         :param prefix: (Optional) filename prefix
         :param dir: (Optional) relative path to directory within the scratch dir where the file should exist
         :return: :class:`~tempfile.SpooledTemporaryFile` instance
         """
-        return tempfile.SpooledTemporaryFile(max_size, mode, bufsize, suffix, prefix, self.join(dir))
+        return tempfile.SpooledTemporaryFile(max_size, mode, buffering, encoding,
+                                             newline, suffix, prefix, self.join(dir))
 
     @requires_activation
-    def secure(self, suffix='', prefix='tmp', dir=None, text=False, return_fd=True):
+    def secure(self, suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None, text=False, return_fd=True):
         """
         Create a new temporary file within the scratch dir in the most secure manner possible
         with the lowest possibility of race conditions during creation.
@@ -183,7 +205,7 @@ class ScratchDir(object):
         return filename
 
     @requires_activation
-    def directory(self, suffix='', prefix='tmp', dir=None):
+    def directory(self, suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None):
         """
         Creates a new temporary directory within the scratch dir in the most secure manner possible and no
         chance of race conditions.
@@ -198,7 +220,7 @@ class ScratchDir(object):
         return tempfile.mkdtemp(suffix, prefix, self.join(dir))
 
     @requires_activation
-    def filename(self, suffix='', prefix=''):
+    def filename(self, suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX):
         """
         Create a filename that is unique within the scratch dir.
 
