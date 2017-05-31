@@ -5,6 +5,7 @@
     Tests for the :mod:`~scratchdir` module.
 """
 
+import pathlib
 import pytest
 import shutil
 
@@ -144,3 +145,19 @@ def test_scratch_methods_raise_when_not_active(scratch_dir, method_name):
     method = getattr(scratch_dir, method_name)
     with pytest.raises(scratchdir.ScratchDirInactiveError):
         assert method()
+
+
+def test_scratch_child_returns_scratch_dir_instance(active_scratch_dir):
+    """
+    Assert that :meth:`~scratchdir.ScratchDir.child` returns a :class:`~scratchdir.ScratchDir` instance.
+    """
+    assert isinstance(active_scratch_dir.child(), scratchdir.ScratchDir)
+
+
+def test_scratch_child_wd_is_within_parent_wd(active_scratch_dir):
+    """
+    Assert that :meth:`~scratchdir.ScratchDir.child` returns a :class:`~scratchdir.ScratchDir` instance
+    whose working directory is a subdirectory of the working directory of the parent instance.
+    """
+    with active_scratch_dir.child() as child:
+        assert pathlib.Path(active_scratch_dir.wd) in pathlib.Path(child.wd).parents
