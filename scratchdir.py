@@ -11,7 +11,7 @@ import tempfile
 import uuid
 
 
-__all__ = ['ScratchDir']
+__all__ = ['ScratchDirError', 'ScratchDirInactiveError', 'ScratchDir']
 
 
 class ScratchDirError(Exception):
