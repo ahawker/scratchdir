@@ -5,11 +5,20 @@
     Tests for the :mod:`~scratchdir` module.
 """
 
+import io
 import pathlib
 import pytest
 import shutil
 
 import scratchdir
+
+
+def is_file_like_obj(obj):
+    """
+    Helper function to check that the given object implements all public methods of the
+    :class:`~io.IOBase` abstract class.
+    """
+    return all((hasattr(obj, name) for name in dir(io.IOBase) if not name.startswith('_')))
 
 
 @pytest.fixture(scope='function')
@@ -161,3 +170,16 @@ def test_scratch_child_wd_is_within_parent_wd(active_scratch_dir):
     """
     with active_scratch_dir.child() as child:
         assert pathlib.Path(active_scratch_dir.wd) in pathlib.Path(child.wd).parents
+
+
+@pytest.mark.parametrize('method_name', [
+    'file',
+    'named'
+])
+def test_scratch_file_supports_file_obj_interface(active_scratch_dir, method_name):
+    """
+    Assert that methods of :class:`~scratchdir.ScratchDir` that are expected to return file-like objects
+    do so and these objects implement, atleast, the :class:`~io.IOBase` interface.
+    """
+    method = getattr(active_scratch_dir, method_name)
+    assert is_file_like_obj(method())
