@@ -164,6 +164,21 @@ def test_scratch_methods_raise_when_not_active(scratch_dir, method_name):
         assert method()
 
 
+@pytest.mark.parametrize('method_name', [
+    'file',
+    'named',
+    'secure'
+])
+def test_scratch_methods_given_unknown_subdir_raise(active_scratch_dir, method_name):
+    """
+    Assert that methods on :class:`~scratchdir.ScratchDir` that support a `dir` parameter will raise
+    a :class:`~FileNotFoundError` when the dir does not exist.
+    """
+    method = getattr(active_scratch_dir, method_name)
+    with pytest.raises(FileNotFoundError):
+        assert method(dir='foo')
+
+
 def test_scratch_child_returns_scratch_dir_instance(active_scratch_dir):
     """
     Assert that :meth:`~scratchdir.ScratchDir.child` returns a :class:`~scratchdir.ScratchDir` instance.
