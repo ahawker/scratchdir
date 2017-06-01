@@ -21,6 +21,13 @@ def is_file_like_obj(obj):
     return all((hasattr(obj, name) for name in dir(io.IOBase) if not name.startswith('_')))
 
 
+def is_pardir(pardir, subdir):
+    """
+    Helper function to check if the given path is a parent of another.
+    """
+    return pathlib.Path(pardir) in pathlib.Path(subdir).parents
+
+
 @pytest.fixture(scope='function')
 def scratch_dir(tmpdir):
     """
@@ -169,7 +176,7 @@ def test_scratch_child_wd_is_within_parent_wd(active_scratch_dir):
     whose working directory is a subdirectory of the working directory of the parent instance.
     """
     with active_scratch_dir.child() as child:
-        assert pathlib.Path(active_scratch_dir.wd) in pathlib.Path(child.wd).parents
+        assert is_pardir(active_scratch_dir.wd, child.wd)
 
 
 @pytest.mark.parametrize('method_name', [
