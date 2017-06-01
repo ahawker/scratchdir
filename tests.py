@@ -6,6 +6,7 @@
 """
 
 import io
+import os
 import pathlib
 import pytest
 import shutil
@@ -190,3 +191,25 @@ def test_scratch_file_supports_file_obj_interface(active_scratch_dir, method_nam
     """
     method = getattr(active_scratch_dir, method_name)
     assert is_file_like_obj(method())
+
+
+def test_scratch_secure_returns_fd_and_name_by_default(active_scratch_dir):
+    """
+    Assert that :meth:`~scratchdir.ScratchDir` returns a two item tuple containing the file descriptor
+    and filename of the newly created temporary file.
+    """
+    result = active_scratch_dir.secure()
+    assert isinstance(result, tuple)
+    assert isinstance(result[0], int)
+    assert isinstance(result[1], str)
+    assert os.path.exists(result[1])
+
+
+def test_scratch_secure_returns_only_name_on_toggle(active_scratch_dir):
+    """
+    Assert that :meth:`~scratchdir.ScratchDir` returns a :class:`str` containing the filename when
+    configured to do so.
+    """
+    result = active_scratch_dir.secure(return_fd=False)
+    assert isinstance(result, str)
+    assert os.path.exists(result)
