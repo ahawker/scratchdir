@@ -7,9 +7,13 @@
 
 import io
 import os
-import pathlib
 import pytest
 import shutil
+
+try:
+    import pathlib
+except ImportError:
+    import pathlib2 as pathlib
 
 import scratchdir
 
