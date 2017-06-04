@@ -5,6 +5,10 @@
 [![Code Climate](https://codeclimate.com/github/ahawker/scratchdir/badges/gpa.svg)](https://codeclimate.com/github/ahawker/scratchdir)
 [![Issue Count](https://codeclimate.com/github/ahawker/scratchdir/badges/issue_count.svg)](https://codeclimate.com/github/ahawker/scratchdir)
 
+[![PyPI Version](https://badge.fury.io/py/scratchdir.svg)](https://badge.fury.io/py/scratchdir)
+[![PyPI Versions](https://img.shields.io/pypi/pyversions/scratchdir.svg)](https://pypi.python.org/pypi/scratchdir)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/scratchdir.svg)](https://pypi.python.org/pypi/scratchdir)
+
 Context manager to maintain your temporary directories/files.
 
 ### Status
