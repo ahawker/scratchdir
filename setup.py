@@ -15,7 +15,7 @@ except ImportError:
 
 setup(
     name='scratchdir',
-    version='0.0.2',
+    version='0.0.3',
     author='Andrew Hawker',
     author_email='andrew.r.hawker@gmail.com',
     url='https://github.com/ahawker/scratchdir',
