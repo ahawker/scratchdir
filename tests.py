@@ -155,6 +155,9 @@ def test_scratch_teardown_removes_files(scratch_dir, mocker):
     'directory',
     'filename',
     'join',
+    'TemporaryFile',
+    'NamedTemporaryFile',
+    'SpooledTemporaryFile',
     'mkstemp',
     'mkdtemp'
 ])
@@ -171,7 +174,10 @@ def test_scratch_methods_raise_when_not_active(scratch_dir, method_name):
 @pytest.mark.parametrize('method_name', [
     'file',
     'named',
-    'secure'
+    'secure',
+    'TemporaryFile',
+    'NamedTemporaryFile',
+    'mkstemp'
 ])
 def test_scratch_methods_given_unknown_subdir_raise(active_scratch_dir, method_name):
     """
@@ -201,7 +207,9 @@ def test_scratch_child_wd_is_within_parent_wd(active_scratch_dir):
 
 @pytest.mark.parametrize('method_name', [
     'file',
-    'named'
+    'named',
+    'TemporaryFile',
+    'NamedTemporaryFile'
 ])
 def test_scratch_file_supports_file_obj_interface(active_scratch_dir, method_name):
     """

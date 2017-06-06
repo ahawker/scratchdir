@@ -244,5 +244,8 @@ class ScratchDir(object):
         return os.path.join(self.wd, *(str(p) for p in paths if p is not None))
 
     # Aliases
+    TemporaryFile = file
+    NamedTemporaryFile = named
+    SpooledTemporaryFile = spooled
     mkstemp = secure
     mkdtemp = directory
