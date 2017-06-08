@@ -2,4 +2,4 @@
 #
 # Requirements for using this package.
 
-bumpversion
+bumpversion==0.5.3
