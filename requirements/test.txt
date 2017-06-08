@@ -5,7 +5,7 @@
 -r base.txt
 
 pathlib2==2.2.1; python_version <= '3.3'
-coverage>4.0,<4.4
+coverage==4.4.1
 
 pylint
 
