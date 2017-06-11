@@ -124,9 +124,9 @@ module in the standard library. A table of methods is as follows:
 
 | scratchdir | tempfile | description
 | --- | --- | --- |
-| file | TemporaryFile | Create a nameless temporary file that is automatically deleted once it's closed.
-| named | NamedTemporaryFile | Create a temporary file that receives a filename on disk that is automatically deleted once it's closed unless the `delete` parameter is `False`.
-| spooled | SpooledTemporaryFile | Create a temporary file that will overflow from memory onto disk once a defined maximum size is exceeded.
+| file, TemporaryFile | TemporaryFile | Create a nameless temporary file that is automatically deleted once it's closed.
+| named, NamedTemporaryFile | NamedTemporaryFile | Create a temporary file that receives a filename on disk that is automatically deleted once it's closed unless the `delete` parameter is `False`.
+| spooled, SpooledTemporaryFile | SpooledTemporaryFile | Create a temporary file that will overflow from memory onto disk once a defined maximum size is exceeded.
 | secure, mkstemp | mkstemp | Create a temporary file in as secure way as possible.
 | directory, mkdtemp | mkdtemp | Create a temporary directory.
 | filename | N/A | Create a unique filename within the `ScratchDir`.
