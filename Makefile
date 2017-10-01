@@ -39,7 +39,7 @@ codeclimate:  ## Run codeclimate analysis.
 
 .PHONY: pylint
 pylint:  ## Run pylint on the package.
-	@pylint --rcfile .pylintrc scratchdir.py tests.py
+	@pylint --rcfile .pylintrc scratchdir.py
 
 .PHONY: seclint
 seclint:  ## Run bandit linter on the package.
