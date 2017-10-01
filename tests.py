@@ -101,7 +101,7 @@ def test_scratch_is_not_active_when_setup_not_called(scratch_dir):
 def test_scratch_is_active_when_inside_context_manager(scratch_dir):
     """
     Assert that a :prop:`~scratchdir.ScratchDir.is_active` is `True` when
-    the :meth:`~scratchdir.ScratchDir.__enter__` is called. 
+    the :meth:`~scratchdir.ScratchDir.__enter__` is called.
     """
     assert not scratch_dir.is_active
     with scratch_dir:
@@ -111,7 +111,7 @@ def test_scratch_is_active_when_inside_context_manager(scratch_dir):
 def test_scratch_is_not_active_after_context_manager(scratch_dir):
     """
     Assert that a :prop:`~scratchdir.ScratchDir.is_active` is `False` after
-    the :meth:`~scratchdir.ScratchDir.__exit__` is called. 
+    the :meth:`~scratchdir.ScratchDir.__exit__` is called.
     """
     with scratch_dir:
         pass
