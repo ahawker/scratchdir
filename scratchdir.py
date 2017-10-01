@@ -43,7 +43,7 @@ def requires_activation(func):
     performing certain actions.
     """
     @functools.wraps(func)
-    def decorator(self, *args, **kwargs):
+    def decorator(self, *args, **kwargs):  # pylint: disable=missing-docstring
         if not self.is_active:
             raise ScratchDirInactiveError('ScratchDir must be active to perform this action')
         return func(self, *args, **kwargs)
