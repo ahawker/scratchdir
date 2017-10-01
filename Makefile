@@ -41,8 +41,12 @@ codeclimate:  ## Run codeclimate analysis.
 pylint:  ## Run pylint on the package.
 	@pylint --rcfile .pylintrc scratchdir.py tests.py
 
+.PHONY: seclint
+seclint:  ## Run bandit linter on the package.
+	@bandit -v scratchdir.py
+
 .PHONY: lint
-lint: pylint  ## Run all linters.
+lint: pylint seclint  ## Run all linters.
 
 .PHONY: bump-patch
 bump-patch:  ## Bump package patch version, e.g. 0.0.1 -> 0.0.2.
