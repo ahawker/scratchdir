@@ -1,5 +1,9 @@
 .DEFAULT_GOAL := help
 
+.PHONY: changelog
+changelog:   ## Build CHANGELOG.md.
+	@github_changelog_generator -u ahawker -p ulid
+
 .PHONY: test-install
 test-install:  ## Install dependencies required for local test execution.
 	@pip install -q -r requirements/test.txt
