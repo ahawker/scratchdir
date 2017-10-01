@@ -9,6 +9,9 @@ python:
 matrix:
   allow_failures:
     - python: 'nightly'
+  include:
+    - python: '3.6'
+      env: TOXENV=lint
 install: make travis-install
 script: make travis-script
 after_success: codeclimate-test-reporter
