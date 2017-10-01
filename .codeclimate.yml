@@ -21,7 +21,7 @@ exclude_paths:
 - .tox/
 - build/
 - requirements/
-- pylintrc
+- .pylintrc
 - Makefile
 - "*.md"
 - tests.py
