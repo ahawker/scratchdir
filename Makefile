@@ -37,9 +37,12 @@ codeclimate:  ## Run codeclimate analysis.
 		--volume /tmp/cc:/tmp/cc \
 		codeclimate/codeclimate analyze
 
-.PHONY: lint
-lint:  ## Run pylint on the package.
+.PHONY: pylint
+pylint:  ## Run pylint on the package.
 	@pylint --rcfile .pylintrc scratchdir.py tests.py
+
+.PHONY: lint
+lint: pylint  ## Run all linters.
 
 .PHONY: bump-patch
 bump-patch:  ## Bump package patch version, e.g. 0.0.1 -> 0.0.2.
