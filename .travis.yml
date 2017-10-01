@@ -6,6 +6,9 @@ python:
 - '3.5'
 - '3.6'
 - 'nightly'
+matrix:
+  allow_failures:
+    - python: 'nightly'
 install: make travis-install
 script: make travis-script
 after_success: codeclimate-test-reporter
