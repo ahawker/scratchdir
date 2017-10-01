@@ -37,6 +37,10 @@ codeclimate:  ## Run codeclimate analysis.
 		--volume /tmp/cc:/tmp/cc \
 		codeclimate/codeclimate analyze
 
+.PHONY: scan
+scan:  ## Run security check scan against package dependencies.
+	@safety check
+
 .PHONY: pylint
 pylint:  ## Run pylint on the package.
 	@pylint --rcfile .pylintrc scratchdir.py
