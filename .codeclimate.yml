@@ -21,6 +21,7 @@ exclude_paths:
 - .tox/
 - build/
 - requirements/
+- examples/
 - .pylintrc
 - Makefile
 - "*.md"
