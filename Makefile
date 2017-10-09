@@ -63,7 +63,7 @@ seclint:  ## Run bandit linter on the package.
 	@bandit -v scratchdir.py
 
 .PHONY: lint
-lint: pylint seclint  ## Run all linters.
+lint: pylint seclint mypy  ## Run all linters.
 
 .PHONY: bump-patch
 bump-patch:  ## Bump package patch version, e.g. 0.0.1 -> 0.0.2.
