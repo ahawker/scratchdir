@@ -1,4 +1,4 @@
-# Scratchdir
+# scratchdir
 
 [![Build Status](https://travis-ci.org/ahawker/scratchdir.svg?branch=master)](https://travis-ci.org/ahawker/scratchdir)
 [![Test Coverage](https://codeclimate.com/github/ahawker/scratchdir/badges/coverage.svg)](https://codeclimate.com/github/ahawker/scratchdir/coverage)
