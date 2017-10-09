@@ -50,6 +50,10 @@ codeclimate:  ## Run codeclimate analysis.
 scan:  ## Run security check scan against package dependencies.
 	@safety check
 
+.PHONY: mypy
+mypy:  ## Run mypy static analysis on the package.
+	@mypy scratchdir.py
+
 .PHONY: pylint
 pylint:  ## Run pylint on the package.
 	@pylint --rcfile .pylintrc scratchdir.py
