@@ -13,6 +13,11 @@ except ImportError:
     from distutils.core import setup
 
 
+def get_long_description():
+    with open('README.rst') as f:
+        return f.read()
+
+
 setup(
     name='scratchdir',
     version='0.0.3',
@@ -21,7 +26,7 @@ setup(
     url='https://github.com/ahawker/scratchdir',
     license='Apache 2.0',
     description='Context manager used to maintain your temporary directories/files.',
-    long_description=__doc__,
+    long_description=get_long_description(),
     py_modules=['scratchdir'],
     classifiers=(
         'Development Status :: 5 - Production/Stable',
