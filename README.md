@@ -1,7 +1,7 @@
 # scratchdir
 
 [![Build Status](https://travis-ci.org/ahawker/scratchdir.svg?branch=master)](https://travis-ci.org/ahawker/scratchdir)
-[![Test Coverage](https://codeclimate.com/github/ahawker/scratchdir/badges/coverage.svg)](https://codeclimate.com/github/ahawker/scratchdir/coverage)
+[![codecov](https://codecov.io/gh/ahawker/scratchdir/branch/master/graph/badge.svg)](https://codecov.io/gh/ahawker/scratchdir)
 [![Code Climate](https://codeclimate.com/github/ahawker/scratchdir/badges/gpa.svg)](https://codeclimate.com/github/ahawker/scratchdir)
 [![Issue Count](https://codeclimate.com/github/ahawker/scratchdir/badges/issue_count.svg)](https://codeclimate.com/github/ahawker/scratchdir)
 
