@@ -5,15 +5,15 @@ python:
 - '3.4'
 - '3.5'
 - '3.6'
-- 'nightly'
+- nightly
 matrix:
   allow_failures:
-    - python: 'nightly'
+  - python: nightly
   include:
-    - python: '3.6'
-      env: TOXENV=lint
-    - python: '3.6'
-      env: TOXENV=scan
+  - python: '3.6'
+    env: TOXENV=lint
+  - python: '3.6'
+    env: TOXENV=scan
 install: make travis-install
 script: make travis-script
 after_success: codeclimate-test-reporter
