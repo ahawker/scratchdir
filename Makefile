@@ -94,6 +94,10 @@ clean-pyc:  ## Remove local python cache files.
 	@find . -name '*.pyo' -exec rm -f {} +
 	@find . -name '*~' -exec rm -f {} +
 
+.PHONY: readme
+readme:  ## Convert README.md to README.rst used for setup.py
+	@pandoc --from=markdown --to=rst --output=README.rst README.md
+
 .phony: help
 help: ## Print Makefile usage.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
