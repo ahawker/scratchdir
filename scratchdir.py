@@ -9,6 +9,7 @@ import os
 import shutil
 import sys
 import tempfile
+import typing
 import uuid
 
 
@@ -56,22 +57,23 @@ class ScratchDir(object):
     specific subdirectories and files.
     """
 
-    def __init__(self, prefix='', suffix='.scratchdir', base=None, root=tempfile.tempdir, wd=None):
+    def __init__(self, prefix: str = '', suffix: str = '.scratchdir', base: typing.Optional[str] = None,
+                 root: typing.Optional[str] = tempfile.tempdir, wd: typing.Optional[str] = None) -> None:
         self.prefix = prefix
         self.suffix = suffix
         self.base = base
         self.root = root
         self.wd = wd
 
-    def __enter__(self):
+    def __enter__(self) -> 'ScratchDir':
         self.setup()
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         self.teardown()
 
     @property
-    def is_active(self):
+    def is_active(self) -> bool:
         """
         Check to see if the current scratch dir is active.
 
@@ -82,7 +84,7 @@ class ScratchDir(object):
         """
         return bool(self.wd) and os.path.exists(self.wd)
 
-    def setup(self):
+    def setup(self) -> None:
         """
         Setup the scratch dir by creating a temporary directory to become the root of all new temporary directories
         and files created by this instance.
@@ -91,7 +93,7 @@ class ScratchDir(object):
         self.wd = self.wd or tempfile.mkdtemp(self.suffix, self.prefix, self.base)
 
     @requires_activation
-    def teardown(self):
+    def teardown(self) -> None:
         """
         Teardown the scratch dir by deleting all directories and files within the scratch dir.
         """
@@ -99,7 +101,7 @@ class ScratchDir(object):
         self.wd = None
 
     @requires_activation
-    def child(self, prefix='', suffix='.scratchdir'):
+    def child(self, prefix: str = '', suffix: str = '.scratchdir') -> 'ScratchDir':
         """
         Create a new :class:`~scratchdir.ScratchDir` instance whose working directory is a temporary directory
         within this scratch dir.
@@ -111,8 +113,9 @@ class ScratchDir(object):
         return self.__class__(prefix, suffix, self.wd)
 
     @requires_activation
-    def file(self, mode='w+b', buffering=-1, encoding=None, newline=None,
-             suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None):
+    def file(self, mode: str = 'w+b', buffering: int = -1, encoding: typing.Optional[str] = None,
+             newline: typing.Optional[str] = None, suffix: typing.Optional[str] = DEFAULT_SUFFIX,
+             prefix: typing.Optional[str] = DEFAULT_PREFIX, dir: typing.Optional[str] = None) -> typing.IO:
         """
         Create a new temporary file within the scratch dir.
 
@@ -132,8 +135,10 @@ class ScratchDir(object):
                                       suffix, prefix, self.join(dir))
 
     @requires_activation
-    def named(self, mode='w+b', buffering=-1, encoding=None, newline=None,
-              suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None, delete=True):
+    def named(self, mode: str = 'w+b', buffering: int = -1, encoding: typing.Optional[str] = None,
+              newline: typing.Optional[str] = None, suffix: typing.Optional[str] = DEFAULT_SUFFIX,
+              prefix: typing.Optional[str] = DEFAULT_PREFIX, dir: typing.Optional[str] = None,
+              delete: bool = True) -> typing.IO:
         """
         Create a new named temporary file within the scratch dir.
 
@@ -154,8 +159,10 @@ class ScratchDir(object):
                                            suffix, prefix, self.join(dir), delete)
 
     @requires_activation
-    def spooled(self, max_size=0, mode='w+b', buffering=-1, encoding=None, newline=None,
-                suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None):
+    def spooled(self, max_size: int = 0, mode: str = 'w+b', buffering: int = -1,
+                encoding: typing.Optional[str] = None, newline: typing.Optional[str] = None,
+                suffix: typing.Optional[str] = DEFAULT_SUFFIX, prefix: typing.Optional[str] = DEFAULT_PREFIX,
+                dir: typing.Optional[str] = None) -> typing.IO:
         """
         Create a new spooled temporary file within the scratch dir.
 
@@ -179,7 +186,9 @@ class ScratchDir(object):
                                              newline, suffix, prefix, self.join(dir))
 
     @requires_activation
-    def secure(self, suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None, text=False, return_fd=True):
+    def secure(self, suffix: typing.Optional[str] = DEFAULT_SUFFIX,
+               prefix: typing.Optional[str] = DEFAULT_PREFIX, dir: typing.Optional[str] = None,
+               text: bool = False, return_fd: bool = True) -> typing.Union[str, typing.Tuple[int, str]]:
         """
         Create a new temporary file within the scratch dir in the most secure manner possible
         with the lowest possibility of race conditions during creation.
@@ -205,7 +214,8 @@ class ScratchDir(object):
         return filename
 
     @requires_activation
-    def directory(self, suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX, dir=None):
+    def directory(self, suffix: typing.Optional[str] = DEFAULT_SUFFIX,
+                  prefix: typing.Optional[str] = DEFAULT_PREFIX, dir: bool = None) -> str:
         """
         Creates a new temporary directory within the scratch dir in the most secure manner possible and no
         chance of race conditions.
@@ -220,7 +230,8 @@ class ScratchDir(object):
         return tempfile.mkdtemp(suffix, prefix, self.join(dir))
 
     @requires_activation
-    def filename(self, suffix=DEFAULT_SUFFIX, prefix=DEFAULT_PREFIX):
+    def filename(self, suffix: typing.Optional[str] = DEFAULT_SUFFIX,
+                 prefix: typing.Optional[str] = DEFAULT_PREFIX) -> str:
         """
         Create a filename that is unique within the scratch dir.
 
@@ -234,7 +245,7 @@ class ScratchDir(object):
         return self.join(''.join((prefix, str(uuid.uuid4()), suffix)))
 
     @requires_activation
-    def join(self, *paths):
+    def join(self, *paths: str) -> str:
         """
         Builds a fully qualified path to the given location relative to the scratch dir.
 
