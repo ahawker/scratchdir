@@ -80,7 +80,8 @@ class ScratchDir(object):
         A scratch dir is active if :meth:`~scratchdir.ScratchDir.setup` has been called and its
         working directory exists on disk.
 
-        :return: :class:`bool` indicating if the scratch dir is active or not
+        :return: Boolean indicating if the scratch dir is active or not
+        :rtype: :class:`~bool`
         """
         return bool(self.wd) and os.path.exists(self.wd)
 
@@ -88,6 +89,9 @@ class ScratchDir(object):
         """
         Setup the scratch dir by creating a temporary directory to become the root of all new temporary directories
         and files created by this instance.
+
+        :return: Nothing
+        :rtype: :class:`~NoneType`
         """
         tempfile.tempdir = self.root
         self.wd = self.wd or tempfile.mkdtemp(self.suffix, self.prefix, self.base)
@@ -96,6 +100,9 @@ class ScratchDir(object):
     def teardown(self) -> None:
         """
         Teardown the scratch dir by deleting all directories and files within the scratch dir.
+
+        :return: Nothing
+        :rtype: :class:`~NoneType`
         """
         shutil.rmtree(self.wd)
         self.wd = None
@@ -107,8 +114,11 @@ class ScratchDir(object):
         within this scratch dir.
 
         :param prefix: (Optional) prefix of the temporary directory for this child scratch dir
+        :type prefix: :class:`~str`
         :param suffix: (Optional) suffix of the temporary directory for this child scratch dir
-        :return: :class:`~scratchdir.ScratchSpace` that is scoped within the current scratch dir
+        :type suffix: :class:`~str`
+        :return: ScratchDir instance that is scoped within the current scratch dir
+        :rtype: :class:`~scratchdir.ScratchDir`
         """
         return self.__class__(prefix, suffix, self.wd)
 
@@ -123,13 +133,21 @@ class ScratchDir(object):
         will cease to exist once it is closed.
 
         :param mode: (Optional) mode to open the file with
+        :type mode: :class:`~str`
         :param buffering: (Optional) size of the file buffer
+        :type buffering: :class:`~int`
         :param encoding: (Optional) encoding to open the file with
+        :type encoding: :class:`~str` or :class:`~NoneType`
         :param newline: (Optional) newline argument to open the file with
+        :type newline: :class:`~str` or :class:`~NoneType`
         :param suffix: (Optional) filename suffix
+        :type suffix: :class:`~str` or :class:`~NoneType`
         :param prefix: (Optional) filename prefix
+        :type prefix: :class:`~str` or :class:`~NoneType`
         :param dir: (Optional) relative path to directory within the scratch dir where the file should exist
+        :type dir: :class:`~str` or :class:`~NoneType`
         :return: file-like object as returned by :func:`~tempfile.TemporaryFile`
+        :rtype: :class:`~_io.BufferedRandom`
         """
         return tempfile.TemporaryFile(mode, buffering, encoding, newline,
                                       suffix, prefix, self.join(dir))
@@ -146,14 +164,23 @@ class ScratchDir(object):
         will cease to exist once it is closed unless `delete` is set to `False`.
 
         :param mode: (Optional) mode to open the file with
+        :type mode: :class:`~str`
         :param buffering: (Optional) size of the file buffer
+        :type buffering: :class:`~int`
         :param encoding: (Optional) encoding to open the file with
+        :type encoding: :class:`~str` or :class:`~NoneType`
         :param newline: (Optional) newline argument to open the file with
+        :type newline: :class:`~str` or :class:`~NoneType`
         :param suffix: (Optional) filename suffix
+        :type suffix: :class:`~str` or :class:`~NoneType`
         :param prefix: (Optional) filename prefix
+        :type prefix: :class:`~str` or :class:`~NoneType`
         :param dir: (Optional) relative path to directory within the scratch dir where the file should exist
+        :type dir: :class:`~str` or :class:`~NoneType`
         :param delete: (Optional) flag to indicate if the file should be deleted from disk when it is closed
+        :type delete: :class:`~bool`
         :return: file-like object as returned by :func:`~tempfile.NamedTemporaryFile`
+        :rtype: :class:`~_io.TemporaryFileWrapper`
         """
         return tempfile.NamedTemporaryFile(mode, buffering, encoding, newline,
                                            suffix, prefix, self.join(dir), delete)
@@ -173,14 +200,23 @@ class ScratchDir(object):
         By default, a spooled file will never roll over to disk.
 
         :param max_size: (Optional) max size before the in-memory buffer rolls over to disk
+        :type max_size: :class:`~int`
         :param mode: (Optional) mode to open the file with
+        :type mode: :class:`~str`
         :param buffering: (Optional) size of the file buffer
+        :type buffering: :class:`~int`
         :param encoding: (Optional) encoding to open the file with
+        :type encoding: :class:`~str`
         :param newline: (Optional) newline argument to open the file with
+        :type newline: :class:`~str` or :class:`~NoneType`
         :param suffix: (Optional) filename suffix
+        :type suffix: :class:`~str` or :class:`~NoneType`
         :param prefix: (Optional) filename prefix
+        :type prefix: :class:`~str` or :class:`~NoneType`
         :param dir: (Optional) relative path to directory within the scratch dir where the file should exist
-        :return: :class:`~tempfile.SpooledTemporaryFile` instance
+        :type dir: :class:`~bool`
+        :return: SpooledTemporaryFile instance
+        :rtype: :class:`~tempfile.SpooledTemporaryFile`
         """
         return tempfile.SpooledTemporaryFile(max_size, mode, buffering, encoding,
                                              newline, suffix, prefix, self.join(dir))
@@ -200,11 +236,17 @@ class ScratchDir(object):
         `return_fd` is set to `False`.
 
         :param suffix: (Optional) filename suffix
+        :type suffix: :class:`~str` or :class:`~NoneType`
         :param prefix: (Optional) filename prefix
+        :type prefix: :class:`~str` or :class:`~NoneType`
         :param dir: (Optional) relative path to directory within the scratch dir where the file should exist
+        :type dir: :class:`~str` or :class:`~NoneType`
         :param text: (Optional) flag to indicate if the file should be opened in text mode instead of binary
+        :type text: :class:`~bool`
         :param return_fd: (Optional) flag to indicate if the file descriptor should also be returned
-        :return: :class:`~string` representing the temporary file name or :class:`~tuple` of fd and filename
+        :type text: :class:`~bool`
+        :return: String representing the temporary file name or Tuple of file descriptor and filename
+        :rtype: :class:`~str` or :class:`~tuple`
         """
         fd, filename = tempfile.mkstemp(suffix, prefix, self.join(dir), text)
         if return_fd:
@@ -223,9 +265,13 @@ class ScratchDir(object):
         This returns the result of :func:`~tempfile.mkdtemp` which returns the fully qualified path to the directory.
 
         :param suffix: (Optional) directory name suffix
+        :type suffix: :class:`~str` or :class:`~NoneType`
         :param prefix: (Optional) directory name prefix
+        :type prefix: :class:`~str` or :class:`~NoneType`
         :param dir: (Optional) relative path to directory within the scratch dir where the directory should exist
-        :return: :class:`~string` to path on disk where new directory exists
+        :type dir: :class:`~str` or :class:`~NoneType`
+        :return: Path on disk where new directory exists
+        :rtype: :class:`~str`
         """
         return tempfile.mkdtemp(suffix, prefix, self.join(dir))
 
@@ -239,8 +285,11 @@ class ScratchDir(object):
         a temporary file for that location.
 
         :param suffix: (Optional) filename suffix
+        :type suffix: :class:`~str` or :class:`~NoneType`
         :param prefix: (Optional) filename prefix
-        :return: :class:`~string` to path in scratch dir for unique filename.
+        :type prefix: :class:`~str` or :class:`~NoneType`
+        :return: Path in scratch dir for unique filename
+        :rtype: :class:`~str`
         """
         return self.join(''.join((prefix, str(uuid.uuid4()), suffix)))
 
@@ -250,7 +299,9 @@ class ScratchDir(object):
         Builds a fully qualified path to the given location relative to the scratch dir.
 
         :param paths: One or more paths to join
-        :return: :class:`~string` to path within scratch dir
+        :type paths: :class:`~tuple of `:class:`~str`
+        :return: Fully qualified path within scratch dir
+        :rtype: :class:`~str`
         """
         return os.path.join(self.wd, *(str(p) for p in paths if p is not None))
 
