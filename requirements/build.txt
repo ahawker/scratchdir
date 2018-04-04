@@ -1,0 +1,5 @@
+# scratchdir/requirements/build.txt
+#
+# Requirements necessary to build the scratchdir package.
+
+pip==9.0.3
