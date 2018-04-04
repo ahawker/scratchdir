@@ -4,8 +4,12 @@
 changelog:   ## Build CHANGELOG.md.
 	@github_changelog_generator -u ahawker -p ulid
 
+.PHONY: build-install
+build-install:  ## Install dependencies required for local package building.
+	@pip install -q -r requirements/build.txt
+
 .PHONY: test-install
-test-install:  ## Install dependencies required for local test execution.
+test-install: build-install  ## Install dependencies required for local test execution.
 	@pip install -q -r requirements/test.txt
 
 .PHONY: test
@@ -13,7 +17,7 @@ test: test-install  ## Run test suite.
 	@py.test -v tests.py
 
 .PHONY: tox-install
-tox-install:  ## Install dependencies required for local test execution using tox.
+tox-install: build-install  ## Install dependencies required for local test execution using tox.
 	@pip install -q -r requirements/tox.txt
 
 .PHONY: tox
@@ -21,7 +25,7 @@ tox: tox-install  ## Run test suite using tox.
 	@tox
 
 .PHONY: travis-install
-travis-install:  ## Install dependencies for travis-ci.org integration.
+travis-install: build-install  ## Install dependencies for travis-ci.org integration.
 	@pip install -q -r requirements/travis.txt
 
 .PHONY: travis-before-script
