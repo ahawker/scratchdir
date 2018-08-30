@@ -51,7 +51,7 @@ def requires_activation(func):
     return decorator
 
 
-class ScratchDir(object):
+class ScratchDir:
     """
     Represents a directory on disk within the default temporary directory that can be used to store context
     specific subdirectories and files.
