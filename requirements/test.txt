@@ -8,7 +8,7 @@ pathlib2==2.3.3; python_version <= '3.3'
 coverage==4.5.3
 
 pytest<3.3.0; python_version < '3.4'  # pyup: ignore
-pytest==4.6.1; python_version >= '3.4'
+pytest==4.6.2; python_version >= '3.4'
 pytest-cov==2.7.1
 pytest-mock==1.6.3; python_version < '3.4'  # pyup: ignore
 pytest-mock==1.10.4; python_version >= '3.4'
