@@ -4,4 +4,4 @@
 
 pip==19.2.2
 setuptools==36.8.0; python_version < '2.7'  # pyup: ignore
-setuptools==41.1.0.post1; python_version > '2.7'
+setuptools==41.2.0; python_version > '2.7'
