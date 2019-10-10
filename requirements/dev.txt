@@ -5,8 +5,9 @@
 -r base.txt
 
 bumpversion==0.5.3
-mypy==0.730
-pylint==1.7.5; python_version < '3.4'  # pyup: ignore
+mypy==0.670; python_version <= '3.4'  # pyup: ignore
+mypy==0.730; python_version > '3.4'
+pylint==2.3.1; python_version == '3.4'  # pyup: ignore
 pylint==2.4.2; python_version > '3.4'
 bandit==1.6.2
 safety==1.8.5
