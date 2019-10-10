@@ -123,7 +123,7 @@ def test_scratch_setup_assigns_wd(scratch_dir):
     Assert that :attr:`~scratchdir.ScratchDir.wd` is set after :meth:`~scratchdir.ScratchDir.setup` is called.
     """
     with scratch_dir:
-        assert scratch_dir.wd is not None
+        assert scratch_dir.wd != scratchdir.DEFAULT_WD
 
 
 def test_scratch_teardown_unassigns_wd(scratch_dir):
@@ -132,7 +132,7 @@ def test_scratch_teardown_unassigns_wd(scratch_dir):
     """
     with scratch_dir:
         pass
-    assert scratch_dir.wd is None
+    assert scratch_dir.wd == scratchdir.DEFAULT_WD
 
 
 def test_scratch_teardown_removes_files(scratch_dir, mocker):

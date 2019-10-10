@@ -24,6 +24,9 @@ else:
     DEFAULT_PREFIX = 'tmp'
     DEFAULT_SUFFIX = ''
 
+# Default working directory value.
+DEFAULT_WD = ''
+
 
 class ScratchDirError(Exception):
     """
@@ -58,7 +61,7 @@ class ScratchDir:
     """
 
     def __init__(self, prefix: str = '', suffix: str = '.scratchdir', base: typing.Optional[str] = None,
-                 root: typing.Optional[str] = tempfile.tempdir, wd: typing.Optional[str] = None) -> None:
+                 root: typing.Optional[str] = tempfile.tempdir, wd: str = DEFAULT_WD) -> None:
         self.prefix = prefix
         self.suffix = suffix
         self.base = base
@@ -105,7 +108,7 @@ class ScratchDir:
         :rtype: :class:`~NoneType`
         """
         shutil.rmtree(self.wd)
-        self.wd = None
+        self.wd = DEFAULT_WD
 
     @requires_activation
     def child(self, prefix: str = '', suffix: str = '.scratchdir') -> 'ScratchDir':
