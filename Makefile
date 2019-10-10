@@ -6,11 +6,11 @@ changelog:   ## Build CHANGELOG.md.
 
 .PHONY: build-install
 build-install:  ## Install dependencies required for local package building.
-	@pip install -q -r requirements/build.txt
+	@pip install -r requirements/build.txt
 
 .PHONY: test-install
 test-install: build-install  ## Install dependencies required for local test execution.
-	@pip install -q -r requirements/test.txt
+	@pip install -r requirements/test.txt
 
 .PHONY: test
 test: test-install  ## Run test suite.
@@ -18,7 +18,7 @@ test: test-install  ## Run test suite.
 
 .PHONY: tox-install
 tox-install: build-install  ## Install dependencies required for local test execution using tox.
-	@pip install -q -r requirements/tox.txt
+	@pip install -r requirements/tox.txt
 
 .PHONY: tox
 tox: tox-install  ## Run test suite using tox.
@@ -26,12 +26,12 @@ tox: tox-install  ## Run test suite using tox.
 
 .PHONY: travis-install
 travis-install: build-install  ## Install dependencies for travis-ci.org integration.
-	@pip install -q -r requirements/travis.txt
+	@pip install -r requirements/travis.txt
 
 .PHONY: travis-before-script
 travis-before-script: travis-install  ## Entry point for travis-ci.org 'before_script' execution.
-	@curl -s https://codecov.io/bash > ./codecov
-	@chmod +x ./codecov
+	curl -s https://codecov.io/bash > ./codecov
+	chmod +x ./codecov
 
 .PHONY: travis-script
 travis-script: travis-install tox  ## Entry point for travis-ci.org execution.
