@@ -294,6 +294,8 @@ class ScratchDir:
         :return: Path in scratch dir for unique filename
         :rtype: :class:`~str`
         """
+        prefix = prefix if prefix is not None else ''
+        suffix = suffix if suffix is not None else ''
         return self.join(''.join((prefix, str(uuid.uuid4()), suffix)))
 
     @requires_activation
