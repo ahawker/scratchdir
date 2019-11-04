@@ -56,19 +56,19 @@ def test_scratch_enter_calls_setup(scratch_dir, mocker):
     """
     Assert that :meth:`~scratchdir.ScratchDir.__enter__` calls :meth:`~scratchdir.ScratchDir.setup`.
     """
-    with mocker.patch.object(scratch_dir, 'setup', wraps=scratch_dir.setup):
-        with scratch_dir:
-            assert scratch_dir.setup.called
+    mocker.patch.object(scratch_dir, 'setup', wraps=scratch_dir.setup)
+    with scratch_dir:
+        assert scratch_dir.setup.called
 
 
 def test_scratch_exit_calls_teardown(scratch_dir, mocker):
     """
     Assert that :meth:`~scratchdir.ScratchDir.__exit__` calls :meth:`~scratchdir.ScratchDir.teardown`.
     """
-    with mocker.patch.object(scratch_dir, 'teardown', wraps=scratch_dir.teardown):
-        with scratch_dir:
-            pass
-        assert scratch_dir.teardown.called
+    mocker.patch.object(scratch_dir, 'teardown', wraps=scratch_dir.teardown)
+    with scratch_dir:
+        pass
+    assert scratch_dir.teardown.called
 
 
 def test_scratch_is_not_active_when_wd_not_set(scratch_dir):
