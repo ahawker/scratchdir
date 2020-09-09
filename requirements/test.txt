@@ -4,7 +4,6 @@
 
 -r dev.txt
 
-pathlib2==2.3.5; python_version <= '3.3'
 coverage==5.2.1
 
 pytest<3.3.0; python_version < '3.4'  # pyup: ignore
