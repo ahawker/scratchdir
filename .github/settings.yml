@@ -1,0 +1,10 @@
+# Probot Settings (https://github.com/probot/settings)
+#
+# Base probot config files are located at https://github.com/ahawker/ahawker-probot-config
+
+_extends: ahawker-probot-config
+
+repository:
+  name: scratchdir
+  description: Context manager to maintain your temporary directories/files.
+  homepage: https://github.com/ahawker/scratchdir
