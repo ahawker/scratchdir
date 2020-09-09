@@ -30,7 +30,7 @@ travis-install: build-install  ## Install dependencies for travis-ci.org integra
 
 .PHONY: travis-before-script
 travis-before-script: travis-install  ## Entry point for travis-ci.org 'before_script' execution.
-	curl -s https://codecov.io/bash > ./codecov
+	curl --retry 3 --max-time 30 -s https://codecov.io/bash > ./codecov
 	chmod +x ./codecov
 
 .PHONY: travis-script
