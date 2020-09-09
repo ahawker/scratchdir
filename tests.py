@@ -86,8 +86,8 @@ def test_scratch_is_not_active_when_wd_does_not_exist(active_scratch_dir, mocker
     working directory does not exist.
     """
     assert active_scratch_dir.is_active
-    with mocker.patch('os.path.exists', return_value=False):
-        assert not active_scratch_dir.is_active
+    mocker.patch('os.path.exists', return_value=False)
+    assert not active_scratch_dir.is_active
 
 
 def test_scratch_is_not_active_when_setup_not_called(scratch_dir):
@@ -139,10 +139,10 @@ def test_scratch_teardown_removes_files(scratch_dir, mocker):
     """
     Assert that :func:`~shutil.rmtree` is called when :func:`~scratchdir.ScratchDir.teardown` is called.
     """
-    with mocker.patch('shutil.rmtree'):
-        with scratch_dir:
-            pass
-        assert shutil.rmtree.called
+    mock = mocker.patch('shutil.rmtree')
+    with scratch_dir:
+        pass
+    assert mock.called
 
 
 @pytest.mark.parametrize('method_name', [
