@@ -20,7 +20,7 @@ def get_long_description():
 
 setup(
     name='scratchdir',
-    version='0.0.3',
+    version='1.0.0',
     author='Andrew Hawker',
     author_email='andrew.r.hawker@gmail.com',
     url='https://github.com/ahawker/scratchdir',
