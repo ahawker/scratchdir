@@ -2,7 +2,7 @@
 
 .PHONY: changelog
 changelog:   ## Build CHANGELOG.md.
-	@github_changelog_generator -u ahawker -p ulid
+	@github_changelog_generator -u ahawker -p scratchdir
 
 .PHONY: build-install
 build-install:  ## Install dependencies required for local package building.
