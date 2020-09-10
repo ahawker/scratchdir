@@ -20,7 +20,7 @@ script: make travis-script
 after_success: make travis-after-success
 deploy:
 - provider: pypi
-  server: https://pypi.python.org/pypi
+  server: https://upload.pypi.org/legacy/
   user: Andrew.Hawker
   password:
     secure: GD0UFLJEyBYwE52ouQHJDEG8ExwOxSqGPBrUgIsz8VTKE07CtIwc/xQLqoBToqtb4cVoRghEI75oz4VqH91hcP9j3WN3zdXRuRa+Z6DZ0Y9aZoxL637jCYYKeVphHuVxCl0ukZL9AftF8pVlE4xDlorxmxz6xHBQdyTPCRC4HpiqLumehr3FHPNJceR75EDeAjCckWia1yWJXH+1AbSOIYmUqfuUjS7H1vpvNEPvB5wVWiznQGhf09uicyGq91hPtkX6/Ufowr7LmZHF8cufYbRat2GIjdAKuTDo9WoD1mCEZthA1be96+nWz402IPGGUd8bu66RsDVeEDXG8oihT83GEICK2C60CX6fogCNK6/ri2EaiY2H4FkhRSnLTtNTWPoukGsihHV8ZKLwLfH0Fpv0nxXLTjCdKckScSWxyK/9Vq+IL/ydSkNoGjlJVNmj5BWLuQi9eXpe4qRe/dEQ9HpdZY+qLgUjrGfrBPKYr9UgANCoh13hMg3hur5uCORw5IZrEfxIonNbgRBs7lQEUKvufmdKVqw5EajuWlNCHPk1bGLVyCr+qHMjPVinKEbVT5ob6qKAx0SlNKV0M9S3uaXNtmegh9bnwC6mFmJS9xuRwS7I0BQvt5Wsut9+yN+x2DsBRv9z6Jog6MKevmC2XjePPuoR3BxZOWwaxsIoXOc="
