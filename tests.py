@@ -152,6 +152,7 @@ def test_scratch_teardown_removes_files(scratch_dir, mocker):
     'named',
     'spooled',
     'secure',
+    'dir',
     'directory',
     'filename',
     'join',

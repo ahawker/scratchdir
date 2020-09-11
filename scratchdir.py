@@ -259,8 +259,28 @@ class ScratchDir:
         return filename
 
     @requires_activation
+    def dir(self, suffix: typing.Optional[str] = DEFAULT_SUFFIX,
+            prefix: typing.Optional[str] = DEFAULT_PREFIX,
+            dir: typing.Optional[str] = None) -> tempfile.TemporaryDirectory:
+        """
+        Create a new temporary directory within the scratch dir that supports the context
+        manager interface.
+
+        :param suffix: (Optional) directory name suffix
+        :type suffix: :class:`~str` or :class:`~NoneType`
+        :param prefix: (Optional) directory name prefix
+        :type prefix: :class:`~str` or :class:`~NoneType`
+        :param dir: (Optional) relative path to directory within the scratch dir where the directory should exist
+        :type dir: :class:`~str` or :class:`~NoneType`
+        :return: Temporary directory
+        :rtype: :class:`~tempfile.TemporaryDirectory`
+        """
+        return tempfile.TemporaryDirectory(suffix, prefix, self.join(dir))
+
+    @requires_activation
     def directory(self, suffix: typing.Optional[str] = DEFAULT_SUFFIX,
-                  prefix: typing.Optional[str] = DEFAULT_PREFIX, dir: bool = None) -> str:
+                  prefix: typing.Optional[str] = DEFAULT_PREFIX,
+                  dir: typing.Optional[str] = None) -> str:
         """
         Creates a new temporary directory within the scratch dir in the most secure manner possible and no
         chance of race conditions.
@@ -314,5 +334,6 @@ class ScratchDir:
     TemporaryFile = file
     NamedTemporaryFile = named
     SpooledTemporaryFile = spooled
+    TemporaryDirectory = dir
     mkstemp = secure
     mkdtemp = directory
